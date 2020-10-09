@@ -32,6 +32,7 @@ class Maze:
         self.stops = list()
         self.roads = list()
         self.start = None
+        self.gold = None
         self.generate(width, height)
 
     @staticmethod
@@ -46,6 +47,7 @@ class Maze:
                 stop = Stop(i, j)
                 self.stops.append(stop)
         self.start = self.stops[0]
+        self.gold = self.stops[rnd.randint(0, len(self.stops) - 1)]
 
         # generate real maze
         unvisited_stops = self.stops.copy()

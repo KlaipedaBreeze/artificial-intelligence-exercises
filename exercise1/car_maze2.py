@@ -4,7 +4,7 @@ import gym
 from gym import spaces
 from gym.utils import seeding
 from os import path
-import maze as mz
+import exercise1.maze as mz
 from gym.envs.classic_control import rendering
 
 
@@ -22,6 +22,7 @@ class CarMazeEnv(gym.Env):
         self.maze_size = (15, 15)
         self.maze = mz.Maze(self.maze_size[0], self.maze_size[1])
         self.carPosition = self.maze.start
+        self.goldPosition = self.maze.gold
         self.seed()
         self.reset()
 
@@ -93,6 +94,13 @@ class CarMazeEnv(gym.Env):
         self.imgtrans.scale = (1, 1)
         self.imgtrans.set_translation(carX, carY)
 
+    def draw_gold_position(self):
+        X = self.goldPosition.x * self.maze_scales[0] + self.maze_scales[1] + self.maze_scales[0] // 2
+        Y = self.goldPosition.y * self.maze_scales[0] + self.maze_scales[1] + self.maze_scales[0] // 2
+        self.viewer.add_onetime(self.imgGold)
+        self.imgGoldtrans.scale = (1, 1)
+        self.imgGoldtrans.set_translation(X, Y)
+
     def render(self, mode='human'):
         screen_width = 800
         screen_height = 800
@@ -103,8 +111,13 @@ class CarMazeEnv(gym.Env):
             self.img = rendering.Image(fname, 40., 20.)
             self.imgtrans = rendering.Transform()
             self.img.add_attr(self.imgtrans)
+            fnamegold = path.join(path.dirname(__file__), "assets/gold.png")
+            self.imgGold = rendering.Image(fnamegold, 40., 20.)
+            self.imgGoldtrans = rendering.Transform()
+            self.imgGold.add_attr(self.imgtrans)
 
         self.draw_car_position()
+        self.draw_gold_position()
         return self.viewer.render(return_rgb_array=mode == 'rgb_array')
 
 
