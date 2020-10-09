@@ -53,8 +53,12 @@ class CarMazeEnv(gym.Env):
         nextStop = next((x for x in self.maze.stops if x.get_id == desiredStop.get_id), None)
         self.carPosition = nextStop
         state = self.observation()
-        reward = 0
-        done = False
+        if self.carPosition.get_id == self.goldPosition.get_id:
+            reward = 100
+            done = True
+        else:
+            reward = 0
+            done = False
         return state, reward, done, {}
 
 
@@ -114,7 +118,7 @@ class CarMazeEnv(gym.Env):
             fnamegold = path.join(path.dirname(__file__), "assets/gold.png")
             self.imgGold = rendering.Image(fnamegold, 40., 20.)
             self.imgGoldtrans = rendering.Transform()
-            self.imgGold.add_attr(self.imgtrans)
+            self.imgGold.add_attr(self.imgGoldtrans)
 
         self.draw_car_position()
         self.draw_gold_position()
