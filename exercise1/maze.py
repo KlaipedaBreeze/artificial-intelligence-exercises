@@ -1,3 +1,7 @@
+#####################################################
+# No code change allowed
+#####################################################
+
 import math
 import random as rnd
 
@@ -41,7 +45,7 @@ class Maze:
 
     def generate(self, width=5, height=5):
 
-        # Creating stops in maze
+        # Creating stops in __maze
         for j in range(0, height):
             for i in range(0, width):
                 stop = Stop(i, j)
@@ -49,7 +53,7 @@ class Maze:
         self.start = self.stops[0]
         self.gold = self.stops[rnd.randint(0, len(self.stops) - 1)]
 
-        # generate real maze
+        # generate real __maze
         unvisited_stops = self.stops.copy()
 
         myStack = []
