@@ -26,7 +26,7 @@ env = cm.CarMazeEnv("open")
 # You code starts here
 #####################################
 
-for i_episode in range(1):
+for i_episode in range(10):
     observation = env.reset()
     for t in range(200000):
         env.render()
@@ -35,11 +35,12 @@ for i_episode in range(1):
         # # example code
         # # --------------------------------------------
         # #action = env.action_space.sample()
-        # time.sleep(0.1)
+        # time.sleep(0.3)
         # avalableActions = [x[0] for x in enumerate(observation) if x[1] == 1]
         # action = avalableActions[rnd.randint(0, len(avalableActions)-1)]
+        #
         # observation, reward, done, info = env.step(action)
-        # print(observation)
+        # print(observation[6])
         #
         # if done:
         #     print("Episode finished after {} timesteps".format(t+1))
