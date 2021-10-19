@@ -44,12 +44,12 @@ class CarMazeEnv(gym.Env):
         down = int(mz.Stop(carPos.x, carPos.y - 1).get_id in availabeStops)
         left = int(mz.Stop(carPos.x - 1, carPos.y).get_id in availabeStops)
         right = int(mz.Stop(carPos.x + 1, carPos.y).get_id in availabeStops)
-        if self.__maze_mode == "blind":
-            return [up, down, left, right]
-
         roads_obs = [(x.source.get_id, x.dest.get_id) for x in self.__maze.roads]
         car_obs = carPos.get_id
         gold_obs = self.__goldPosition.get_id
+
+        if self.__maze_mode == "blind":
+            return [up, down, left, right, car_obs, gold_obs]
         return [up, down, left, right, car_obs, gold_obs, roads_obs]
 
     def reset(self):
